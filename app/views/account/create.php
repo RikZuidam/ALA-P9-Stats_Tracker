@@ -11,6 +11,6 @@
 		<label>Name: <input type="text" name="name"></label>
 		<input type="submit" name="btnCreate" value="Create">
 	</form>
-	<a href="../home/">Cancel</a>
+	<a href="../home/dashboard">Cancel</a>
 </body>
 </html>

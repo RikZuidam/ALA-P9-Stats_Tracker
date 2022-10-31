@@ -1,17 +1,29 @@
 <?php
 
-class Profile extends Controller
+class Team extends Controller
 {
-	public function index($name = '')
+    public $id;
+    
+	public function info2()
 	{
-		$user = $this->model('User');
-		$user->name = $name;
+            if(isset($_POST["infoTeam"])) {
+		$user = $this->model('TeamModel');
+                $user->id = $_POST["infoTeam"];
+                $user->info();
 		
 		$this->view('profile/index', ['name' => $user->name]);
+            }
 	}
 
-	// public function test()
-	// {
-	// 	echo "test";
-	// }
+	 public function info($item_id)
+	 {
+                $teamInfo = $this->model('TeamModel');
+                $teamInfo->id = $item_id;
+                $teamInfo->info();
+                if(is_null($teamInfo->info())) {
+                    $this->view('team/info', false);
+                } else {
+                    $this->view('team/info', $teamInfo->info());
+                }
+	 }
 }
