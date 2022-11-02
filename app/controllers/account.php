@@ -26,7 +26,7 @@ class Account extends Controller
 			$item->email = $_POST['email'];
 			$item->pwd   = $_POST['pwd'];
 			if($item->login() === true) {
-                                header("location: ../home/dashboard");
+                header("location: ../home/dashboard");
 			} else {
 				$this->view("account/login", ['error'=>$item->login(), 'email'=>$_POST['email']]);
 			}

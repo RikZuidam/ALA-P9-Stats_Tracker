@@ -9,18 +9,18 @@ class UserModel extends Model
 
     public function get()
 	{
-		$sql = "SELECT * FROM user WHERE `admin` IS NULL;";
+		$sql = "SELECT * FROM user WHERE `admin` = ?;";
 		$stmt = self::$_connection->prepare($sql);
-		$stmt->execute();
+		$stmt->execute(array(0));
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 //		return $stmt->fetchAll();
 	}
         
     public function getSpecific($input)
     {
-        $sql = "SELECT * FROM user WHERE `admin` IS NULL AND (`name` LIKE '%$input%' OR `email` LIKE '%$input%');";
+        $sql = "SELECT * FROM user WHERE `admin` = ? AND (`name` LIKE '%$input%' OR `email` LIKE '%$input%');";
         $stmt = self::$_connection->prepare($sql);
-        $stmt->execute();
+        $stmt->execute(array(0));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -34,9 +34,9 @@ class UserModel extends Model
 
 		$hashed_pwd = password_hash($this->pwd, PASSWORD_DEFAULT);
 
-		$sql = "INSERT INTO user(`name`, `email`, `password`) VALUES (?, ?, ?);";
+		$sql = "INSERT INTO user(`name`, `email`, `password`, `admin`) VALUES (?, ?, ?, ?);";
 		$stmt = self::$_connection->prepare($sql);
-		$stmt->execute(array($this->name, $this->email, $hashed_pwd));
+		$stmt->execute(array($this->name, $this->email, $hashed_pwd, 0));
 		return true;
 	}
 //    public function create2()
@@ -50,7 +50,7 @@ class UserModel extends Model
     public function login()
 	{
 		if(empty($this->email) || empty($this->pwd)) { return "Vul alle velden in!"; }
-		$sql = "SELECT `id`, `email`, `password`, `admin` FROM user WHERE `email` = ?;";
+		$sql = "SELECT `id`, `name`, `email`, `password`, `admin` FROM user WHERE `email` = ?;";
 		$stmt = self::$_connection->prepare($sql);
 		$stmt->execute(array($this->email));
 		if($stmt->rowCount() < 1) { return "Gebruiker niet gevonden"; }
@@ -58,9 +58,12 @@ class UserModel extends Model
 
 		$verify = password_verify($this->pwd, $data[0]["password"]);
 		if($verify === false) { return "Ongeldig!"; }
-                session_start();
-                $_SESSION["id"] = $data[0]["id"];                
-                $_SESSION["admin"] = $data[0]["admin"];
+			session_start();
+			$_SESSION["id"] = $data[0]["id"];
+			$_SESSION["name"] = $data[0]["name"];
+			if($data[0]["admin"] == 1) {
+				$_SESSION["admin"] = $data[0]["admin"];
+			}
 
 		return true;
 	}

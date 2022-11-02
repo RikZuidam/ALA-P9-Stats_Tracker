@@ -17,6 +17,18 @@ class Team extends Controller
 
 	 public function info($item_id)
 	 {
+        session_start();
+            if(isset($_POST['joinTeam'])) {
+                $team = $this->model('TeamModel');
+                $team->id = $_POST['joinTeam'];
+                if($team->sendRequest($_SESSION['id']) === false) {
+                    $teams = $this->model('TeamModel')->get();
+                    $this->view('home/dashboard', ['teams'=>$teams, 'error'=>"Already did a request to a team!"]);
+                } else {
+                    $teams = $this->model('TeamModel')->get();
+                    $this->view('home/dashboard', ['teams'=>$teams, 'success'=>"Successfull send a request!"]);
+                }
+            } else {
                 $teamInfo = $this->model('TeamModel');
                 $teamInfo->id = $item_id;
                 $teamInfo->info();
@@ -25,5 +37,6 @@ class Team extends Controller
                 } else {
                     $this->view('team/info', $teamInfo->info());
                 }
+            }
 	 }
 }

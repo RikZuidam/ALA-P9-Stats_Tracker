@@ -1,6 +1,11 @@
 <?php 
 session_start();
 if(!isset($_SESSION["id"])) { header("location: ../home/"); }
+// if(isset($_SESSION["admin"])) {
+//     echo "test";
+// } else {
+//     echo "test2";
+// }
 ?>
 <?php 
 include "../app/includes/top.php";
@@ -65,12 +70,12 @@ include "../app/includes/navbar.php";
 <?php } else {?>
 <?php if(isset($data['error'])) {?>
 <div class="alert alert-danger w-25 m-auto text-center" role="alert">
-    <?php echo $data['error'];?>
+    <?php echo $data['error'] . "\n<a href='../../home/dashboard'>Click to go back!</a>";?>
 </div>
 <?php } ?>
 <?php if(isset($data['success'])) {?>
 <div class="alert alert-success w-25 m-auto text-center" role="success">
-    <?php echo $data['success'];?>
+    <?php echo $data['success'] . "\n<a href='../../home/dashboard'>Click to go back!</a>";?>
 </div>
 <?php } ?>
 <!-- Begin Main -->

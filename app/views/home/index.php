@@ -1,18 +1,20 @@
-<?php if(explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL)) != ["home"]) { header("location: home/"); }?>
+<?php 
+if(explode('/', filter_var(rtrim($_GET['url']), FILTER_SANITIZE_URL)) != ["home", ""]) { header("location: home/");}
+session_start();
+// var_dump($_GET['url']);?>
 <?php
 include "../app/includes/top.php";
 include "../app/includes/navbar.php";
 ?>
 
 <!-- Begin Main -->
-<!-- <div class="container-fluid">
+<div class="container-fluid">
     <div class="row">
         <div class="col-1 blanc"></div>
         <div class="col-10 main">test<br>test<br></div>
         <div class="col-1 blanc"></div>
     </div>
-</div> -->
-<?php phpinfo()?>
+</div>
 <!-- End Main -->
 
 <?php 

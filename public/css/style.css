@@ -28,3 +28,7 @@ thead {
     z-index: 1 !important;
     background: white;
 }
+
+.blanc {
+    background-color: var(--workspace) !important;
+}

@@ -8,10 +8,10 @@ class Model
 	{
             if(self::$_connection == null) {
                 // Database connection using PDO
-                $host = "localhost";
+                $host = "127.0.0.1";
                 $dbname = "realisatie2";
-                $user = "root";
-                $password = "root";
+                $user = "rik";
+                $password = "rootroot";
 
                 self::$_connection = new PDO("mysql:host=$host;dbname=$dbname",$user,$password);
             }

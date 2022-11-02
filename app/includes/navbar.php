@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="../account/request">Requests</a>
+                    <a class="nav-link text-white" href="../home/requests">Requests</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-right">
@@ -35,7 +35,7 @@
         <ul class="navbar-nav mr-right">
             <li class="nav-item active">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Rik
+                <?php echo $_SESSION['name'];?>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="../account/detail/<?php echo $_SESSION['id'];?>">Profile</a>
